@@ -1,0 +1,64 @@
+
+<ul id= "MyInput" style="list-style: none;">
+{{#each data}}
+<li >
+ <div  class="w3-row-padding w3-padding-16 w3-center" id="food">
+        <div class="w3-center"> 
+            <div class= "entry">
+            <img src={{this.picture}}  style="width:25%">
+            <h3> {{this.name}} </h3>
+            <span> Cusine: {{this.cuisine}}</span>
+            <span>Price: {{this.price}}</span>
+            <span>Course: {{this.course}}</span>
+            <span>Chef: {{this.chef}}</span>
+            <span>Allergens: {{this.allergens}}</span>
+            </div>
+        </div>
+ </div>
+
+ </li>
+ {{/each}}
+</ul>
+
+<ul id="myList">
+    <div class="container">
+        {{#each data}}
+                <div class="content" onclick="location.href='/dishName/{{this.name}}'">
+                    <h2 id="dish" class="name"></h2>
+                </div>
+        {{/each}}
+        <h2 id="none"></h2>
+        <div class="content" onclick="location.href='/dishName'">
+        </div>
+    </div>
+</ul>
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("autocomplete-input");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("MyInput");
+    li = ul.getElementsByTagName("li");
+    console.log(li);
+    var count = li.length;
+    document.getElementById("none").innerHTML = "";
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = li[i].innerText;
+        console.log(txtValue);
+        if (txtValue.toUpperCase().indexOf(filter) > -1 || filter == "") {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+            count--;
+        }
+        if (count <= 0) {
+            document.getElementById("none").innerHTML = "No Matches.";
+            count=li.length;
+        }
+    }
+}
+</script> 
+
+

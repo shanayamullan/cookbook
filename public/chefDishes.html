@@ -1,0 +1,50 @@
+<body><div class="nav">
+    <div>
+    <a href="/">Home</a>
+    &nbsp; &nbsp;&nbsp;
+   <a href="/addDish">Add a Dish </a>
+    &nbsp; &nbsp;&nbsp;
+   <a href="/allDishes">List of Dishes</a>
+    &nbsp; &nbsp;&nbsp;
+    <a href="/chefDishes">List of Dishes from a specific Chef</a>
+    &nbsp; &nbsp;&nbsp;
+   <a href="/cuisine">List of Dishes by type of Cuisine</a>
+    &nbsp; &nbsp;&nbsp;
+   <a href="/course/">List of Dishes by Course</a>
+   &nbsp; &nbsp;&nbsp;
+   <a href="/allergen/">List of Dishes by Allergen</a>
+    </div>
+  </div>
+  
+  
+    <div class="center"><p name="p" id="house">Enter the name of the Chef you want to see or enter "None"</p></div>
+  
+  <form id="form" method="GET" action="">
+      <div class="center">
+          <input id="value" type="text">
+      </div>
+      <div class="center">
+          <input type="submit" id="button" value="Search">
+      </div>
+  </form>
+  <script>
+      window.onsubmit = true
+      let button = document.getElementById("button")
+      button.addEventListener("click", clickEvent)
+  
+      // redirects to different page as index.js cannot be referenced directly from here
+      function clickEvent(){
+          let type = document.getElementsByName("p")[0].id
+          let value = document.getElementById("value").value
+          
+          let first = "localhost:3000"
+          let url = "/results/" + type + "/" + value
+  
+          document.getElementById("form").action = url        
+      }
+  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  
+  
+  </body>
+  

@@ -1,0 +1,82 @@
+<body><div class="nav">
+    <div>
+      <a href="/">Home</a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/addDish">Add a Dish </a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/allDishes">List of Dishes</a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/chefDishes">List of Dishes from a specific Chef</a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/cuisine">List of Dishes by type of Cuisine</a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/course/">List of Dishes by Course</a>
+      &nbsp; &nbsp;&nbsp;
+      <a href="/allergen/">List of Dishes by Allergen</a>
+    </div>
+  </div>
+  
+  
+    <p>Enter the dish information in the form below</p>
+  <form id="form" class="add_dish_form" action="/api/addDish" method="POST">
+              <fieldset id="general">
+                  <legend class="info">Dish Information</legend>
+                  Dish:
+                  <input id="dish" name="dish" class="dish_info" type="text" required="">
+                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cuisine:
+              
+                  <select id="cuisine" name="cuisine" class="dish_info">
+                    <option value="korean">Korean</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="indian">Indian</option>
+                    <option value="italian">Italian</option>
+                  </select>
+                  <br>
+                  Price($):
+                  
+                   <input type="number" name="price" id="price"  min="1" max="30"required="">
+                  
+                  
+                   &nbsp; &nbsp;
+                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                  Course:  
+                    <select id="course" name="course" class="dish_info">
+                      <option value="appetizer">Appetizer</option>
+                      <option value="soupOrSalad">Soup or Salad</option>
+                      <option value="main">Main Dish</option>
+                      <option value="side">Side Dish</option>
+                     <option value="dessert">Dessert</option>
+                    </select>
+                    
+                    &nbsp; &nbsp;
+                   Allergens List: <textarea class="allergen-box dish_info" id="allergen_list" name="allergens" placeholder="Enter the list of allergens. Enter a | character to seperate allergens."  rows="3" cols="20"></textarea>
+                   
+          
+              </fieldset>
+              
+              <fieldset id="chef_info">
+                  <legend class="info">Chef Information</legend>
+                      Chef Name: <input id="chef" name="chef" class="dish_info" type="text" placeholder="Enter the Chef's name" required="">
+                      <br>
+                        &nbsp; &nbsp;   &nbsp; &nbsp;&nbsp;
+                      Email: <input id="email" name="email" class="dish_info" type="email" required="">
+                      
+                      Phone Number: <input type="tel" id="phone" name="phone" class="dish_info"
+                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                             required>
+  
+                      <small>Format: 123-456-7890</small>
+              
+                  </fieldset>
+                  <!-- clear and submision -->
+                  <fieldset>
+                      <input type="reset" id="reset_button" name="reset" value="Clear Form">
+                      <input type="submit" id="submit" name="submit" value="Submit Information">
+                  </fieldset>
+              </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  
+  
+  </body>
+  

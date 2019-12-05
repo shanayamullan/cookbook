@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
+<body>
+
+  <!-- Top menu -->
+
+  <div class="w3-white w3-xlarge w3-center" style="max-width:1200px;margin:auto">
+      <div>
+        <a class="w3-leftcenter w3-padding-10", href="/cuisine">Cuisine</a>
+        <a class="w3-leftcenter w3-padding-10", href="/breakfast">Breakfast</a>
+        <a class="w3-center w3-padding-10", href="/lunch">Lunch</a>
+        <a class="w3-rightcenter w3-padding-10", href="/dinner">Dinner</a>
+        <a class="w3-rightcenter w3-padding-10", href="/price">Price(lowest to highest)</a>
+        <br> 
+         
+      <button type="button" id="createNew" onclick="window.location.pathname = '/dish-form' ">Request a Dish</button> 
+      
+      <div class="search">
+        <input class="autocomplete" type="text" id="autocomplete-input" placeholder="Search Dish" onkeyup="myFunction()"/>
+        </button>
+      </div>
+  
+   
+      </div>
+  </div>
+
+ {{{body}}}
+
+  
+
+<body>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  <script>
+    $('#createNew').on('click', function() {
+      console.log("hi");
+    });
+  </script>
+  </div>
+</body>
+
+</html>

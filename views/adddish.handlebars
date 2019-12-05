@@ -1,0 +1,24 @@
+<p>Enter the dish's information in the form below</p>
+<form id="form" class="add_dish_form" action="/api/add-dish" method="POST">
+            <fieldset id="general">
+                <legend class="info">Dish Information</legend>
+                Dish Name:
+                <input id="dish" name="name" class="dish_info" type="text" required>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cuisine:
+                <input id="cuisine" name="cuisine" class="dish_info" type="text" placeholder="Enter type of cuisine or put none"required>
+                <br>
+                &nbsp; &nbsp; &nbsp; &nbsp; Course:
+                <input id="course" name="course" class="dish info" type="text" placeholder="Enter breakfast,lunch, dinner or none" required>
+                Price:
+                <input id="price" name="price" class="dish_info" type="text" placeholder="Enter price of the dish" required>
+                Chef:
+                <input id="chef" name="chef" class="dish_info" type="text" placeholder="Enter chef name or N/A" required>
+                <br>
+                Allergens:
+                <textarea name="allergens" id="description" placeholder="Enter any allergies" required></textarea>
+            </fieldset>
+             <!-- clear and submision -->
+                <fieldset>
+                    <input type="reset" id="reset_button" name="reset" value="Clear Form">
+                    <input type="submit" id="submit" name="submit" value="Submit Information">
+                </fieldset>

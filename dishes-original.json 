@@ -1,0 +1,62 @@
+{
+    "dishes": [
+        {
+            "name": "Risotto",
+            "cuisine": "Italian",
+            "course": "Dinner",
+            "price": 21,
+            "chef": "Andrew Bartoli",
+            "email":"and.bar@gmail.com",
+            "phone":"344-456-1782",
+            "allergens": [
+                "nut free"
+            ]
+
+        },
+        {
+            "name": "Bulgogi",
+            "cuisine": "Korean",
+            "course": "Lunch",
+            "price": 11,
+            "chef": "Steve Carell",
+            "email":"steve.car@yahoo.com",
+            "phone":"344-456-1782",
+            "allergens": [
+                "gluten free",
+                "nut free",
+                "dairy free"
+            ]
+
+        },
+        {
+            "name": "Dosa",
+            "cuisine": "Indian",
+            "course": "Breakfast",
+            "price": 9,
+            "chef": "Shanaya Mullan",
+            "email":"smullan@gmail.com",
+            "phone":"344-456-1782",
+            "allergens": [
+                "nut free",
+                "dairy free"
+            ]
+
+        },
+        {
+            "name": "Chow mein",
+            "cuisine": "Chinese",
+            "course": "Dinner",
+            "price": 7,
+            "chef": "Jean Shu",
+            "email":"jeanshu@comcast.net",
+            "phone":"344-456-1782",
+            "allergens": [
+                "nut free",
+                "dairy free"
+            ]
+
+        }
+    ]
+}
+
+        
