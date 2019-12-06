@@ -7,14 +7,21 @@ var dataUtil = require("./data-util");
 var _ = require("underscore");
 var fs = require('fs');
 var mongoose = require('mongoose');
+mongoose.Promise=global.Promise;
+var Dish = require('./models/Dish');
+var Order = require('./models/Order');
+var Recipe = require('./models/Recipe');
+
+
+
 var dotenv = require('dotenv');
+require('dotenv').config().load();
 
-var Order = require('/models/Order');
-var Dish = require('/models/Dish');
-var Recipe = require('/models/Recipe');
+//var http = require('http').Server(app);
+//var io = require('socket.io')(http);
 
-var io = require('socket.io')(http);
-dotenv.load();
+
+var url = "mongodb://localhost:3000/Dish";
 
 // Connect to MongoDB
 console.log(process.env.MONGODB)
@@ -24,11 +31,23 @@ mongoose.connection.on('error', function() {
     process.exit(1);
 });
 
-var app = express();
 
-app.use(logger('dev'));
+
+
+// mongoose.connect(process.env.MONGODB);
+// mongoose.connection.on('error', function() {
+//     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+//     process.exit(1);
+// });
+
+var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.use(logger('dev'));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
@@ -44,9 +63,10 @@ var _DATA = dataUtil.loadData().dishes;
 
 //Get Requests: 
 app.get("/", function(req,res){
-  res.render('home', {
-    data: _DATA
-  });
+  Dish.find({}, function(err, dishes) {
+    if (err) throw err;
+    res.send(dishes);
+});
 })
 
 app.get('/dishName', function(req,res){
@@ -115,35 +135,57 @@ app.get('/dish-form', function(req,res){
 
 app.post('/api/add-dish', function(req, res) {
   //getting fields 
-  let _name= req.body.name
-  let _cuisine = req.body.cuisine 
-  let _course = req.body.course 
-  let _price = req.body.price
-  let _chef = req.body.chef 
-  let _allergens = req.body.allergens 
+  var dish = new Dish({ 
+  name: req.body.name,
+  cuisine: req.body.cuisine ,
+  course: req.body.course ,
+  price:req.body.price,
+  chef: req.body.chef ,
+  allergens: req.body.allergens,
+  });
 
-  let result = _.findWhere(_DATA, {name: _name})
+  dish.save(function(err) {
+    if (err) throw err;
+    return res.send('Succesfully inserted movie.');
+  });
+});  
 
-	if(result){
-		res.send("The dish has already been added")
-	} else {
-		let obj = [{
-			
-			"name": _name,
-			"cuisine": _cuisine,
-			"course": _course,
-			"price": _price,
-			"chef": _chef,
-			"allergens": _allergens
-		}]
-		_DATA = _.union(_DATA, obj)
-	
-		let ret = {
-			dishes: _DATA
-    }
-    fs.writeFileSync("dishes.json", (JSON.stringify(ret, null, 4)))
-  }
-  res.redirect("/");
+//have to make another page handlebars
+app.get('/order-form', function(req,res){
+  res.render('addorder');
+});
+
+
+app.post('/api/add-order', function(req, res) {
+  //getting fields 
+  var order = new Order({ 
+  name: req.body.name,
+
+  });
+
+  dish.save(function(err) {
+    if (err) throw err;
+    return res.send('Succesfully inserted movie.');
+  });
+});  
+
+app.delete('/dish/:name', function(req, res) {
+
+  // Find and delete by name
+  Dish.deleteOne({ name: req.params.name }, function (err) {});
+  res.send('Dish deleted!');
+ 
+
+});
+
+//should be deleteed off page
+app.delete('/order/:name', function(req, res) {
+
+  // Find and delete by name
+  Order.deleteOne({ name: req.params.name }, function (err) {});
+  res.send('Order deleted!');
+ 
+
 });
 
 

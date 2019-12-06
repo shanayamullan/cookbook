@@ -2,14 +2,17 @@ var mongoose = require('mongoose');
 
 var dishSchema = new mongoose.Schema({
 
-    name: {type: String,
+    name: 
+    {type: String,
         required: true},
     cuisine:
     { type: String,
     required: true},
-    course:  { type: String,
+    course: 
+     { type: String,
         required: true},
-    price: {type:Integer},
+    price: 
+    {type:Number},
     chef:  { type: String,
         required: true},
     email:  { type: String,
@@ -19,9 +22,10 @@ var dishSchema = new mongoose.Schema({
     allergens:{ type: Array,
     required:false},
     picture: {type: String,
-        required: true}
+        required: true},
+    dishId:{type:Number},
 });
 
-var Dishes = mongoose.model('Dishes', dishSchema);
+var Dish = mongoose.model('Dish', dishSchema);
 
-module.exports = Movie;
+module.exports = Dish;

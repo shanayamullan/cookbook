@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-var Dish= require('/Dish');
+var Dish= require('./Dish');
 
 var orderSchema = new mongoose.Schema({
-    dish: {
-        type: Dish,
+    dishName: {
+        type: String,
         required: true
     },
     recipient: {
