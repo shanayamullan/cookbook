@@ -21,8 +21,6 @@ dotenv.config();
 //var io = require('socket.io')(http);
 
 
-var url = "mongodb://localhost:3000/Dish";
-
 // Connect to MongoDB
 console.log(process.env.MONGODB)
 mongoose.connect(process.env.MONGODB);
@@ -63,70 +61,95 @@ var _DATA = dataUtil.loadData().dishes;
 
 //Get Requests: 
 app.get("/", function(req,res){
-  Dish.find({}, function(err, dishes) {
+  Dish.find({}, function(err, movies) {
     if (err) throw err;
-    res.send(dishes);
+    res.render('home',{data: movies});
 });
-})
+});
 
 app.get('/dishName', function(req,res){
-  res.render('home', {
-    data: _.where(_DATA,{name}),
-
-  });
+  Dish.find({name}, function(err, movies) {
+    if (err) throw err;
+    res.render('home',{data: movies});
+});
 });
 
 app.get('/cuisine', function(req,res){
-  res.render('home', {
-    data: _.sortBy(_DATA, function(dish) { return dish.cuisine }),
-    renderCuisine:true
-  });
-});
-app.get('/course', function(req,res){
-  res.render('home', {
-    data: _.where(_DATA,{course}),
-    renderCourses:true
+  Dish.find({}, null, {sort: {cuisine: 1}}, function (err, result) {
+    business = result.filter(function(result){
+      return result.cusine;
+    });
+    res.render('home', {
+      data:business
+    })
   });
 });
 
+app.get('/course', function(req,res){
+  Dish.find({}, null, {sort: {course: 1}}, function (err, result) {
+    business = result.filter(function(result){
+      return result.course;
+    });
+    res.render('home', {
+      data:business
+    })
+  });
+});
 
 app.get('/dinner', function(req,res){
-  res.render('home', {
-    data: _.where(_DATA,{course:"Dinner"}),
-    renderDinner:true
-  });
+  Dish.find({course:"Dinner"}, function(err, movies) {
+    if (err) throw err;
+    res.render('home',{data: movies});
+});
+  // res.render('home', {
+  // data: Dish.find({course:"Dinner"}),
+  // renderDinner:true
+  // });
 });
 
 app.get('/lunch', function(req,res){
-  res.render('home', {
-    data: _.where(_DATA,{course:"Lunch"}),
-    renderDinner:true
-  });
+  Dish.find({course:"Lunch"}, function(err, movies) {
+    if (err) throw err;
+    res.render('home',{data: movies});
+});
 });
 
 app.get('/breakfast', function(req,res){
-  res.render('home', {
-    data: _.where(_DATA,{course:"Breakfast"}),
-    renderDinner:true
-  });
+  Dish.find({course:"Breakfast"}, function(err, movies) {
+    if (err) throw err;
+    res.render('home',{data: movies});
+});
 });
 
 app.get('/price', function(req,res){
-  res.render('home', {
-    data: _.sortBy(_DATA, function(dish) { return dish.price })
+  Dish.find({},null, {sort: {price: 1}}, function (err, result) {
+    thedish = result.filter(function(result){
+      return result.price;
+    });
+    res.render('home', {
+      data:thedish
+    })
   });
 });
 
 app.get('/chef', function(req,res){
-  res.render('home', {
-    // data: _.sortBy(_DATA, function(dish) { return dish.chef })
-    data: _.where(_DATA,{chef})
+  Dish.find({}, null, {sort: {chef: 1}}, function (err, result) {
+    business = result.filter(function(result){
+      return result.chef;
+    });
+    res.render('home', {
+      data:business
+    })
   });
 });
 
 app.get('/api/alphabetical', function(req,res) {
-  var val = _.sortBy(_DATA, function(dish) { return dish.name })
-  res.json(val)
+  Dish.find({},null, {sort: {name: 1}}, function (err, result) {
+    mythings = result.filter(function(result){
+      return result.name;
+    });
+    res.send(mythings)
+  });
 });
 
 app.get('/dish-form', function(req,res){
@@ -146,7 +169,7 @@ app.post('/api/add-dish', function(req, res) {
 
   dish.save(function(err) {
     if (err) throw err;
-    return res.send('Succesfully inserted movie.');
+    return res.send('Succesfully inserted dosh.');
   });
 });  
 
@@ -159,33 +182,50 @@ app.get('/order-form', function(req,res){
 app.post('/api/add-order', function(req, res) {
   //getting fields 
   var order = new Order({ 
-  name: req.body.name,
+  dishName: req.body.dishName,
+  recipient: req.body.recipient
+
 
   });
 
-  dish.save(function(err) {
+  order.save(function(err) {
     if (err) throw err;
     return res.send('Succesfully inserted movie.');
   });
 });  
 
-app.delete('/dish/:name', function(req, res) {
+app.post('/api/add-recipe', function(req, res) {
+  //getting fields 
+  var recipe = new Recipe({ 
 
-  // Find and delete by name
-  Dish.deleteOne({ name: req.params.name }, function (err) {});
+  items: req.body.items,
+  });
+
+  order.save(function(err) {
+    if (err) throw err;
+    return res.send('Succesfully inserted movie.');
+  });
+});  
+
+app.delete('/dish/:id', function(req, res) {
+  // Find movie by id
+  Dish.findByIdAndRemove(req.params.id, function(err, dish) {
+  if (err) throw err;
   res.send('Dish deleted!');
- 
-
+});
 });
 
 //should be deleteed off page
-app.delete('/order/:name', function(req, res) {
+app.delete('/order/:id', function(req, res) {
+  // Find movie by id
+  Order.findByIdAndRemove(req.params.id, function(err, business) {
+  if (err) throw err;
+  res.send('Business deleted!');
+});
+});
 
-  // Find and delete by name
-  Order.deleteOne({ name: req.params.name }, function (err) {});
-  res.send('Order deleted!');
- 
-
+app.get('/group', function(req,res){
+  res.render('group');
 });
 
 
