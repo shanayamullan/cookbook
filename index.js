@@ -6,7 +6,23 @@ var exphbs = require('express-handlebars');
 var dataUtil = require("./data-util");
 var _ = require("underscore");
 var fs = require('fs');
+var mongoose = require('mongoose');
+var dotenv = require('dotenv');
 
+var Order = require('/models/Order');
+var Dish = require('/models/Dish');
+var Recipe = require('/models/Recipe');
+
+var io = require('socket.io')(http);
+dotenv.load();
+
+// Connect to MongoDB
+console.log(process.env.MONGODB)
+mongoose.connect(process.env.MONGODB);
+mongoose.connection.on('error', function() {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+});
 
 var app = express();
 
