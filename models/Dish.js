@@ -23,7 +23,7 @@ var dishSchema = new mongoose.Schema({
     required:false},
     picture: {type: String,
         required: true},
-    dishId:{type:Number},
+   
 });
 
 var Dish = mongoose.model('Dish', dishSchema);

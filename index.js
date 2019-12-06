@@ -15,7 +15,7 @@ var Recipe = require('./models/Recipe');
 
 
 var dotenv = require('dotenv');
-require('dotenv').config().load();
+dotenv.config();
 
 //var http = require('http').Server(app);
 //var io = require('socket.io')(http);
