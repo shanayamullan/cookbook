@@ -139,7 +139,7 @@ app.post('/api/add-dish', function(req, res) {
   name: req.body.name,
   cuisine: req.body.cuisine ,
   course: req.body.course ,
-  price:req.body.price,
+  price: parseInt(req.body.price),
   chef: req.body.chef ,
   allergens: req.body.allergens,
   });
